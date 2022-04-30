@@ -1,0 +1,43 @@
+version: '2.1'
+
+volumes:
+  mariadb: {}
+
+services:
+  db:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - mariadb:/var/lib/mysql
+    secrets:
+      - db_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=/run/secrets/db_password
+      - MYSQL_DATABASE=kohakudns
+      - MYSQL_USER=kohakudns
+      - MYSQL_PASSWORD=/run/secrets/db_password
+      - TZ=Asia/Seoul
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
+      timeout: 3s
+      retries: 5
+
+#  backend:
+#    build:
+#      context: ./server
+#      entrypoint: DockerFile
+#    mem_limit: 300m
+#    depends_on:
+#      - db
+#        condition: service_healthy
+#    environment:
+#      - ENVIRONMENT=dev
+#    restart: always
+#    ports:
+#      - "3510:3500"
+
+secrets:
+  db_password:
+    file: ./secret-db.txt
