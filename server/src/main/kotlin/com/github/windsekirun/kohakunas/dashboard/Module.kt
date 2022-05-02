@@ -6,6 +6,7 @@ import com.github.windsekirun.kohakunas.dashboard.database.DatabaseProviderContr
 import com.github.windsekirun.kohakunas.dashboard.model.entity.User
 import com.github.windsekirun.kohakunas.dashboard.modules.auth.authenticationModule
 import com.github.windsekirun.kohakunas.dashboard.modules.register.registerModule
+import com.github.windsekirun.kohakunas.dashboard.modules.service.serviceModule
 import com.github.windsekirun.kohakunas.dashboard.modules.user.userModule
 import com.github.windsekirun.kohakunas.dashboard.statuspages.authStatusPages
 import com.github.windsekirun.kohakunas.dashboard.statuspages.generalStatusPages
@@ -61,6 +62,7 @@ fun Application.module() {
         registerModule()
         authenticate("jwt") {
             userModule()
+            serviceModule()
         }
     }
 }
