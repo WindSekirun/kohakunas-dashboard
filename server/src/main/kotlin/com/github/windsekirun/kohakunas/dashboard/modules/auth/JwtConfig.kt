@@ -33,6 +33,7 @@ object JwtConfig : TokenProvider {
      */
     override fun createTokens(user: User): LoginDTO.CredentialsResponse {
         return LoginDTO.CredentialsResponse(
+            user.userName,
             createToken(user, getTokenExpiration()),
             createToken(user, getTokenExpiration(refrehsValidityInMs))
         )
