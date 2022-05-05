@@ -6,6 +6,7 @@ import com.github.windsekirun.kohakunas.dashboard.model.dto.UserDTO
 import com.github.windsekirun.kohakunas.dashboard.modules.BaseController
 import com.github.windsekirun.kohakunas.dashboard.modules.auth.TokenProvider
 import com.github.windsekirun.kohakunas.dashboard.statuspages.AuthenticationException
+import com.github.windsekirun.kohakunas.dashboard.statuspages.GeneralException
 import com.github.windsekirun.kohakunas.dashboard.statuspages.InvalidUserException
 import com.github.windsekirun.kohakunas.dashboard.util.PasswordManagerContract
 import org.koin.core.KoinComponent
@@ -22,7 +23,7 @@ class RegistrationControllerImpl : BaseController(), RegistrationController, Koi
             userApi.getUserByName(postUser.userName)?.let {
                 throw InvalidUserException("User is already taken")
             }
-            userApi.createUser(postUser) ?: throw UnknownError("Internal server error")
+            userApi.createUser(postUser) ?: throw GeneralException("Internal server error")
         }
         return UserDTO.Me.fromUser(user)
     }
