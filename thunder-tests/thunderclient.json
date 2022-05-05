@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "d3ee6ebb-713f-495a-87aa-5bf133ade11e",
+    "colId": "4a1312cf-c51b-4cc9-b5ec-7275216db539",
+    "containerId": "",
+    "name": "Register User",
+    "url": "0.0.0.0:8081/api/user",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-05-05T13:49:10.179Z",
+    "modified": "2022-05-05T13:50:14.367Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"userName\": \"pyxis\",\n    \"password\": \"{{PASSWORD}}\",\n    \"registerSecret\": \"{{REGISTER_SECRET}}\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

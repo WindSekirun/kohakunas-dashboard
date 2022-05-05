@@ -11,11 +11,11 @@ import org.koin.ktor.ext.inject
 fun Route.userModule() {
     val controller by inject<UserController>()
 
-    get("me") {
+    get("api/me") {
         call.respond(UserDTO.Me.fromUser(call.user))
     }
 
-    delete("user") {
+    delete("api/user") {
         controller.removeUser(call.user.id)
         sendOk()
     }

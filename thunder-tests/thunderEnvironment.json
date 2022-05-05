@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "3c61f8cd-6489-4f60-bf50-1ec70f8cb9cb",
+    "name": "dashboard",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2022-05-05T13:48:05.183Z",
+    "modified": "2022-05-05T13:48:12.774Z",
+    "data": [],
+    "envFile": "..\\.vscode\\.env"
+  }
+]

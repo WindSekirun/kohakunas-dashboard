@@ -9,7 +9,7 @@ import org.koin.ktor.ext.inject
 fun Route.serviceModule() {
     val controller by inject<ServiceController>()
 
-    get("services") {
+    get("api/services") {
         call.respond(controller.getServicesList(call.user))
     }
 }

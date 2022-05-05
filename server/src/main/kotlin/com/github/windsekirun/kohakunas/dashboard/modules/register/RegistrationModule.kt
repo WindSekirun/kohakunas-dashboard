@@ -12,19 +12,19 @@ fun Routing.registerModule() {
 
     val unauthenticatedController by inject<RegistrationController>()
 
-    post("user") {
+    post("api/user") {
         val postUser = call.receive<UserDTO.CreateUser>()
         val user = unauthenticatedController.createUser(postUser)
         call.respond(user)
     }
 
-    post("authenticate") {
+    post("api/authenticate") {
         val credentials = call.receive<LoginDTO.LoginCredentials>()
         val loginTokenResponse = unauthenticatedController.authenticate(credentials)
         call.respond(loginTokenResponse)
     }
 
-    post("token") {
+    post("api/token") {
         val credentials = call.receive<LoginDTO.RefreshBody>()
         val credentialsResponse = unauthenticatedController.refreshToken(credentials)
         call.respond(credentialsResponse)
