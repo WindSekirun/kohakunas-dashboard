@@ -1,13 +1,16 @@
 package com.github.windsekirun.kohakunas.dashboard.modules.admin
 
-import com.github.windsekirun.kohakunas.dashboard.model.dto.UserDTO
-import com.github.windsekirun.kohakunas.dashboard.user
+import com.github.windsekirun.kohakunas.dashboard.model.dto.AdminDTO
 import io.ktor.application.*
-import io.ktor.response.*
+import io.ktor.request.*
 import io.ktor.routing.*
+import org.koin.ktor.ext.inject
 
 fun Route.adminModule() {
-    get("api/admin") {
-        call.respond(UserDTO.Me.fromUser(call.user))
+    val controller by inject<AdminController>()
+
+    post("/api/user/role") {
+        val request = call.receive<AdminDTO.ChangeRoleRequest>()
+        controller.changeUserRole(request.userId, request.role)
     }
 }

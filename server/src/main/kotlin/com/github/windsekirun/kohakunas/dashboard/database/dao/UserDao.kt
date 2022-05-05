@@ -13,34 +13,32 @@ object Users : Table(), UserDao {
     val password = varchar("password", 255)
     val role = enumeration("role", Role::class)
 
-    override fun getUserById(userId: Int): User? {
-        return select {
-            (id eq userId)
-        }.mapNotNull {
-            it.mapRowToUser()
-        }.singleOrNull()
-    }
+    override fun getUserById(userId: Int) = select {
+        (id eq userId)
+    }.mapNotNull {
+        it.mapRowToUser()
+    }.singleOrNull()
 
-    override fun insertUser(postUser: UserDTO.CreateUser): Int {
-        return (insert {
-            it[userName] = postUser.userName
-            it[password] = postUser.password
-            it[creationTime] = System.currentTimeMillis()
-            it[role] = Role.User // default - user
-        })[id]
-    }
+    override fun insertUser(postUser: UserDTO.CreateUser) = (insert {
+        it[userName] = postUser.userName
+        it[password] = postUser.password
+        it[creationTime] = System.currentTimeMillis()
+        it[role] = Role.User // default - user
+    })[id]
 
-    override fun deleteUser(userId: Int): Boolean {
-        return deleteWhere { (id eq userId) } > 0
-    }
+    override fun deleteUser(userId: Int) = deleteWhere { (id eq userId) } > 0
 
-    override fun getUserByName(userNameValue: String): User? {
-        return select {
-            (userName eq userNameValue)
-        }.mapNotNull {
-            it.mapRowToUser()
-        }.singleOrNull()
-    }
+    override fun getUserByName(userNameValue: String) = select {
+        (userName eq userNameValue)
+    }.mapNotNull {
+        it.mapRowToUser()
+    }.singleOrNull()
+
+    override fun changeUserRole(userId: Int, newRole: Role) = update(where = {
+        (id eq userId)
+    }, body = {
+        it[role] = newRole
+    })
 }
 
 fun ResultRow.mapRowToUser() =
@@ -56,4 +54,5 @@ interface UserDao {
     fun insertUser(postUser: UserDTO.CreateUser): Int?
     fun deleteUser(userId: Int): Boolean
     fun getUserByName(userNameValue: String): User?
+    fun changeUserRole(userId: Int, newRole: Role): Int
 }

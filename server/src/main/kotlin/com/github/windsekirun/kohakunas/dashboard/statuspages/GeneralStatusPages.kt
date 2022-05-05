@@ -16,4 +16,4 @@ fun StatusPages.Configuration.generalStatusPages() {
 
 data class MissingArgumentException(override val message: String = "Missing argument") : Exception()
 
-data class GeneralException(override val message: String) : Exception()
+data class GeneralException(override val message: String = "Internal Server Error", override val cause: Throwable? = null) : Exception(message, cause)

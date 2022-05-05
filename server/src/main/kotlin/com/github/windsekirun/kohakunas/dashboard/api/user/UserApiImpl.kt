@@ -4,6 +4,7 @@ import com.github.windsekirun.kohakunas.dashboard.config.Config
 import com.github.windsekirun.kohakunas.dashboard.statuspages.InvalidUserException
 import com.github.windsekirun.kohakunas.dashboard.database.dao.UserDao
 import com.github.windsekirun.kohakunas.dashboard.model.dto.UserDTO
+import com.github.windsekirun.kohakunas.dashboard.model.entity.Role
 import com.github.windsekirun.kohakunas.dashboard.model.entity.User
 import com.github.windsekirun.kohakunas.dashboard.util.PasswordManagerContract
 import org.koin.core.KoinComponent
@@ -32,4 +33,6 @@ object UserApiImpl : UserApi, KoinComponent {
     override fun removeUser(userId: Int) = usersDao.deleteUser(userId)
 
     override fun getUserByName(username: String) = usersDao.getUserByName(username)
+
+    override fun changeUserRole(userId: Int, role: Role) = usersDao.changeUserRole(userId, role)
 }
