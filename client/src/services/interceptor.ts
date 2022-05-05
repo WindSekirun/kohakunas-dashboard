@@ -1,6 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Store } from "vuex";
-import axiosInstance from "./api";
+import { RefreshBody } from "../model/login";
+import axiosInstance, { LOGIN, TOKEN } from "./api";
 import tokenService from "./token-service";
 
 const setup = (store: Store<unknown>) => {
@@ -9,7 +10,7 @@ const setup = (store: Store<unknown>) => {
             const token = tokenService.getLocalAccessToken();
             if (token) {
                 if (!config.headers) return;
-                config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
+                config.headers["Authorization"] = 'Bearer ' + token; 
             }
             return config;
         },
@@ -25,22 +26,20 @@ const setup = (store: Store<unknown>) => {
         async (err) => {
             const originalConfig = err.config;
 
-            if (originalConfig.url !== "/api/authenticate" && err.response) {
+            if (originalConfig.url !== LOGIN && err.response) {
                 // Access Token was expired
                 if (err.response.status === 401 && !originalConfig._retry) {
                     originalConfig._retry = true;
 
                     try {
-                        const rs = await axiosInstance.post("/api/token", {
-                            userName: tokenService.getUserName(),
-                            refreshToken: tokenService.getLocalRefreshToken(),
-                        });
+                        const request = new RefreshBody()
+                        request.userName = tokenService.getUserName();
+                        request.refreshToken = tokenService.getLocalRefreshToken();
 
-                        const { accessToken } = rs.data;
-
+                        const response = await axiosInstance.post(TOKEN, request);
+                        const { accessToken } = response.data;
                         store.dispatch('auth/refreshToken', accessToken);
                         tokenService.updateLocalAccessToken(accessToken);
-
                         return axiosInstance(originalConfig);
                     } catch (_error) {
                         return Promise.reject(_error);

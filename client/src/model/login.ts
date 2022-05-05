@@ -12,3 +12,8 @@ export class CredentialsResponse {
     accessToken: string = ""
     refreshToken: string = ""
 }
+
+export class RefreshBody {
+    userName: string = ""
+    refreshToken: string = ""
+}

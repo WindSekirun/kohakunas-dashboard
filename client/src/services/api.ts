@@ -9,3 +9,6 @@ const instance = axios.create({
 });
 
 export default instance;
+export const LOGIN = "/api/authenticate";
+export const USER = "/api/user"
+export const TOKEN = "/api/token"
