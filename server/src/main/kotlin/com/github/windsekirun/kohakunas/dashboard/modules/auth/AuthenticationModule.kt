@@ -2,7 +2,10 @@ package com.github.windsekirun.kohakunas.dashboard.modules.auth
 
 import com.auth0.jwt.interfaces.JWTVerifier
 import com.github.windsekirun.kohakunas.dashboard.api.user.UserApi
+import com.github.windsekirun.kohakunas.dashboard.database.DatabaseProvider
 import com.github.windsekirun.kohakunas.dashboard.database.DatabaseProviderContract
+import com.github.windsekirun.kohakunas.dashboard.model.entity.Role
+import com.github.windsekirun.kohakunas.dashboard.model.entity.User
 import io.ktor.auth.*
 import io.ktor.auth.jwt.*
 
@@ -11,21 +14,36 @@ fun Authentication.Configuration.authenticationModule(
     databaseProvider: DatabaseProviderContract,
     tokenVerifier: JWTVerifier
 ) {
-    /**
-     * Setup the JWT authentication to be used in [Routing].
-     * If the token is valid, the corresponding [User] is fetched from the database.
-     * The [User] can then be accessed in each [ApplicationCall].
-     */
-    jwt("jwt") {
+    jwt("plain") {
         verifier(tokenVerifier)
-        realm = "kohaku.moe"
+        realm = REALM
         validate {
-            it.payload.getClaim("id").asInt()?.let { userId ->
-                // do database query to find Principal subclass
-                databaseProvider.dbQuery {
-                    userApi.getUserById(userId)
-                }
+            it.queryUser(databaseProvider, userApi)
+        }
+    }
+
+    jwt("admin") {
+        verifier(tokenVerifier)
+        realm = REALM
+        validate {
+            it.queryUser(databaseProvider, userApi) { user ->
+                require(user?.role == Role.Admin) { "Doesn't match ROLE required" }
             }
         }
     }
 }
+
+suspend fun JWTCredential.queryUser(
+    databaseProvider: DatabaseProviderContract,
+    userApi: UserApi,
+    block: (User?) -> Unit = {}
+) = this.payload.getClaim("id").asInt()?.let { userId ->
+    val user = databaseProvider.dbQuery {
+        userApi.getUserById(userId)
+    }
+
+    block(user)
+    user
+}
+
+const val REALM = "kohaku.moe"

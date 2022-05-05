@@ -17,5 +17,60 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "926ea631-7053-4386-9262-56e18319cbb7",
+    "colId": "4a1312cf-c51b-4cc9-b5ec-7275216db539",
+    "containerId": "",
+    "name": "Login",
+    "url": "0.0.0.0:8081/api/authenticate",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-05-05T13:57:16.468Z",
+    "modified": "2022-05-05T14:00:49.390Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"userName\": \"pyxis\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c759595a-1c99-4d6d-8fa3-3392c291b2e3",
+    "colId": "4a1312cf-c51b-4cc9-b5ec-7275216db539",
+    "containerId": "",
+    "name": "Me",
+    "url": "0.0.0.0:8081/api/me",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2022-05-05T14:04:05.567Z",
+    "modified": "2022-05-05T14:04:05.567Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{TOKEN}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "9d77451e-9483-479c-b69e-49acf8dfe8ae",
+    "colId": "4a1312cf-c51b-4cc9-b5ec-7275216db539",
+    "containerId": "",
+    "name": "Admin - Test",
+    "url": "0.0.0.0:8081/api/admin",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2022-05-05T14:09:54.481Z",
+    "modified": "2022-05-05T14:09:54.481Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{TOKEN}}"
+    },
+    "tests": []
   }
 ]

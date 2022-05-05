@@ -1,7 +1,6 @@
 package com.github.windsekirun.kohakunas.dashboard.modules.register
 
 import com.github.windsekirun.kohakunas.dashboard.api.user.UserApi
-import com.github.windsekirun.kohakunas.dashboard.config.Config
 import com.github.windsekirun.kohakunas.dashboard.model.dto.LoginDTO
 import com.github.windsekirun.kohakunas.dashboard.model.dto.UserDTO
 import com.github.windsekirun.kohakunas.dashboard.modules.BaseController
@@ -29,7 +28,7 @@ class RegistrationControllerImpl : BaseController(), RegistrationController, Koi
     }
 
     override suspend fun authenticate(credentials: LoginDTO.LoginCredentials) = dbQuery {
-        userApi.getUserByName(credentials.username)?.let { user ->
+        userApi.getUserByName(credentials.userName)?.let { user ->
             if (passwordManager.validatePassword(credentials.password, user.password)) {
                 val credentialsResponse = tokenProvider.createTokens(user)
                 LoginDTO.LoginTokenResponse(credentialsResponse)

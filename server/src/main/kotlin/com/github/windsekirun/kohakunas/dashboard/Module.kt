@@ -4,6 +4,7 @@ import com.auth0.jwt.JWTVerifier
 import com.github.windsekirun.kohakunas.dashboard.api.user.UserApi
 import com.github.windsekirun.kohakunas.dashboard.database.DatabaseProviderContract
 import com.github.windsekirun.kohakunas.dashboard.model.entity.User
+import com.github.windsekirun.kohakunas.dashboard.modules.admin.adminModule
 import com.github.windsekirun.kohakunas.dashboard.modules.auth.authenticationModule
 import com.github.windsekirun.kohakunas.dashboard.modules.register.registerModule
 import com.github.windsekirun.kohakunas.dashboard.modules.service.serviceModule
@@ -60,9 +61,12 @@ fun Application.module() {
             resources("static")
         }
         registerModule()
-        authenticate("jwt") {
+        authenticate("plain") {
             userModule()
             serviceModule()
+        }
+        authenticate("admin") {
+            adminModule()
         }
     }
 }
