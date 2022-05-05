@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 object Users : Table(), UserDao {
-    val id = integer("id").primaryKey().autoIncrement()
+    val id = integer("id").autoIncrement().primaryKey()
     val userName = varchar("userName", 255)
     val creationTime = long("creationTime")
     val password = varchar("password", 255)

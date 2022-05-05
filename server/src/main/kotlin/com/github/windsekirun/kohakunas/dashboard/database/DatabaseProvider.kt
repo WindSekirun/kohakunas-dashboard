@@ -1,6 +1,7 @@
 package com.github.windsekirun.kohakunas.dashboard.database
 
 import com.github.windsekirun.kohakunas.dashboard.config.Config
+import com.github.windsekirun.kohakunas.dashboard.database.dao.Services
 import com.github.windsekirun.kohakunas.dashboard.database.dao.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -28,12 +29,12 @@ class DatabaseProvider : DatabaseProviderContract, KoinComponent {
         Database.connect(hikari(config))
         transaction {
             SchemaUtils.create(Users)
+            SchemaUtils.create(Services)
         }
     }
 
     private fun hikari(config: Config): HikariDataSource {
         HikariConfig().run {
-            driverClassName = "com.mysql.jdbc.Driver"
             jdbcUrl = "jdbc:mysql://${config.databaseHost}:${config.databasePort}/${config.databaseName}"
             username = config.databaseUser
             password = config.databasePassword

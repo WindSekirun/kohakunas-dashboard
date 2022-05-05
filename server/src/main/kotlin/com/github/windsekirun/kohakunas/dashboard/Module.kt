@@ -1,6 +1,6 @@
 package com.github.windsekirun.kohakunas.dashboard
 
-import com.auth0.jwt.interfaces.JWTVerifier
+import com.auth0.jwt.JWTVerifier
 import com.github.windsekirun.kohakunas.dashboard.api.user.UserApi
 import com.github.windsekirun.kohakunas.dashboard.database.DatabaseProviderContract
 import com.github.windsekirun.kohakunas.dashboard.model.entity.User

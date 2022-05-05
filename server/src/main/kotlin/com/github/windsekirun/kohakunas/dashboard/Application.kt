@@ -68,13 +68,21 @@ fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Con
     val jwtSecret = System.getenv().getOrDefault("JWT_SECRET", null)
     requireNotNull(jwtSecret) { "jwtSecret can't be null, assign JWT_SECRET in environment variables." }
 
+    val registerSecret = System.getenv().getOrDefault("REGISTER_SECRET", null)
+    requireNotNull(registerSecret) { "registerSecret can't be null, assign REGISTER_SECRET in environment variables." }
+    require(registerSecret.matches(UUID_REGEX)) { "REGISTER SECRET must be in the form corresponding to UUID4." }
+
     return Config(
-        hoconEnvironment.property("port").toString().toInt(),
+        hoconEnvironment.property("port").getString().toInt(),
         hoconEnvironment.property("databaseHost").getString(),
         hoconEnvironment.property("databasePort").getString(),
         hoconEnvironment.property("databaseUser").getString(),
         hoconEnvironment.property("databaseName").getString(),
         password,
-        jwtSecret
+        jwtSecret,
+        registerSecret
     )
 }
+
+private val UUID_REGEX =
+    "[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}".toRegex(RegexOption.IGNORE_CASE)

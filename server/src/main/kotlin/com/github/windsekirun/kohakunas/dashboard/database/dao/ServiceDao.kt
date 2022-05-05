@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.select
 
 object Services : Table(), ServiceDao {
-    val id = integer("id").autoIncrement()
+    val id = integer("id").autoIncrement().primaryKey()
     val title = varchar("title", 128)
     val desc = text("desc")
     val connectUrl = varchar("connectUrl", 128)

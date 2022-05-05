@@ -1,6 +1,7 @@
 package com.github.windsekirun.kohakunas.dashboard.modules.register
 
 import com.github.windsekirun.kohakunas.dashboard.api.user.UserApi
+import com.github.windsekirun.kohakunas.dashboard.config.Config
 import com.github.windsekirun.kohakunas.dashboard.model.dto.LoginDTO
 import com.github.windsekirun.kohakunas.dashboard.model.dto.UserDTO
 import com.github.windsekirun.kohakunas.dashboard.modules.BaseController

@@ -8,4 +8,5 @@ class Config(
     val databaseName: String,
     val databasePassword: String,
     val jwtSecret: String,
+    val registerSecret: String
 )
