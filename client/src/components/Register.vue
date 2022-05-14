@@ -10,8 +10,7 @@
             <v-img :src="profileUrl"></v-img>
           </v-avatar>
           <br />
-          <p class="font-weight-medium text-h3 mt-5">KohakuNAS</p>
-          <p class="font-weight-regular text-h3 mt-1">Dashboard</p>
+          <p class="font-weight-medium text-h3 mt-5">Register</p>
           <br />
 
           <v-text-field
@@ -36,27 +35,34 @@
             @click:append="visiblePassword = !visiblePassword"
           ></v-text-field>
 
+          <v-text-field
+            class="ms-5 me-5"
+            v-model="registerSecret"
+            :rules="[rules.required]"
+            label="Register Secret"
+            counter
+            variant="contained"
+          ></v-text-field>
+
           <v-row class="ms-2 me-2 mb-5">
-            <v-col cols="6">
+            <v-col cols="12">
               <v-btn block @click="handleRegister()">Register</v-btn>
-            </v-col>
-            <v-col cols="6">
-              <v-btn block color="#FBD8C9" @click="handleLogin()">Login</v-btn>
             </v-col>
           </v-row>
         </div>
       </v-card>
     </v-col>
+    <snackbar ref="snackbar" />
   </v-row>
 </template>
 
 <script>
 import kohakuUrl from "../assets/kohaku.png";
-import { LoginCredentials } from "../model/login";
+import { CreateUser } from "../model/user";
 import Snackbar from "./Snackbar.vue";
 
 export default {
-  name: "Login",
+  name: "Register",
   components: {
     Snackbar,
   },
@@ -66,39 +72,34 @@ export default {
       visiblePassword: false,
       username: "",
       password: "",
+      registerSecret: "",
+      errorText: "",
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
       },
     };
   },
+
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  created() {
-    if (this.loggedIn) {
-      this.$router.push("/");
-    }
-  },
   methods: {
-    async handleLogin() {
-      const user = new LoginCredentials();
+    handleRegister() {
+      const user = new CreateUser();
       user.userName = this.username;
       user.password = this.password;
+      user.registerSecret = this.registerSecret;
       this.$store
-        .dispatch("auth/login", user)
+        .dispatch("auth/register", user)
         .then((result) => {
-          this.$router.push("/");
+          this.$router.push("/login");
         })
         .catch((error) => {
           this.$refs.snackbar.show(error);
         });
-    },
-
-    handleRegister() {
-      this.$router.push("/register");
     },
   },
 };

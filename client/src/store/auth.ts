@@ -31,7 +31,7 @@ export const auth = {
                 },
                 error => {
                     commit('loginFailure');
-                    return Promise.reject(error);
+                    return Promise.reject(error.response.data);
                 }
             );
         },
@@ -46,9 +46,8 @@ export const auth = {
                     return Promise.resolve(response.data);
                 },
                 error => {
-                    console.log(error)
                     commit('registerFailure');
-                    return Promise.reject(error);
+                    return Promise.reject(error.response.data);
                 }
             );
         },
