@@ -1,20 +1,11 @@
 import { CredentialsResponse, LoginCredentials } from "../model/login";
 import { CreateUser } from "../model/user";
 import authService from "../services/auth-service";
-import { Commit } from 'vuex'
+import { CommitFunction } from "../utils/commit-function";
 
-const user: CredentialsResponse = JSON.parse(localStorage.getItem('user') || "");
+const user: CredentialsResponse = JSON.parse(localStorage.getItem('user') || "{}");
 
-
-export interface CommitFunction {
-    commit: Commit;
-}
-
-export interface CommitStateFunction<T> extends CommitFunction {
-    state: T;
-}
-
-export interface StoreState {
+export interface AuthState {
     status: Status
     user: CredentialsResponse | null
 }
@@ -23,8 +14,7 @@ export interface Status {
     loggedIn: boolean
 }
 
-
-const initialState: StoreState = user
+const initialState: AuthState = user
     ? { status: { loggedIn: true }, user }
     : { status: { loggedIn: false }, user: null };
 
@@ -65,25 +55,25 @@ export const auth = {
         }
     },
     mutations: {
-        loginSuccess(state: StoreState, user: CredentialsResponse) {
+        loginSuccess(state: AuthState, user: CredentialsResponse) {
             state.status.loggedIn = true;
             state.user = user;
         },
-        loginFailure(state: StoreState) {
+        loginFailure(state: AuthState) {
             state.status.loggedIn = false;
             state.user = null;
         },
-        logout(state: StoreState) {
+        logout(state: AuthState) {
             state.status.loggedIn = false;
             state.user = null;
         },
-        registerSuccess(state: StoreState) {
+        registerSuccess(state: AuthState) {
             state.status.loggedIn = false;
         },
-        registerFailure(state: StoreState) {
+        registerFailure(state: AuthState) {
             state.status.loggedIn = false;
         },
-        refreshToken(state: StoreState, accessToken: string) {
+        refreshToken(state: AuthState, accessToken: string) {
             state.status.loggedIn = true;
             if (state.user) {
                 state.user.accessToken = accessToken

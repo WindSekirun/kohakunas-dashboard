@@ -4,6 +4,11 @@
     "colName": "dashboard",
     "created": "2022-05-05T13:49:00.349Z",
     "sortNum": 10000,
-    "folders": []
+    "folders": [],
+    "settings": {
+      "headers": [],
+      "tests": [],
+      "envId": "3c61f8cd-6489-4f60-bf50-1ec70f8cb9cb"
+    }
   }
 ]
