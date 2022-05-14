@@ -84,7 +84,6 @@ export default {
       user.userName = this.username
       user.password = this.password
       this.$store.dispatch('auth/login', user)
-      
     }
   }
 };

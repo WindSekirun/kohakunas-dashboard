@@ -49,6 +49,15 @@ repositories {
     maven { url 'https://kotlin.bintray.com/ktor' }
 }
 
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += ['-opt-in=kotlin.time.ExperimentalTime',
+                             '-opt-in=kotlin.ExperimentalStdlibApi',
+                             '-opt-in=io.ktor.util.KtorExperimentalAPI']
+    }
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "io.ktor:ktor-server-netty:$ktor_version"

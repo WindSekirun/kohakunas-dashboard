@@ -1,9 +1,7 @@
-import axios from "axios";
 import { LoginCredentials, LoginTokenResponse } from "../model/login";
 import { CreateUser } from "../model/user";
 import api, { LOGIN, USER } from "./api";
 import tokenService from "./token-service";
-const API_URL = import.meta.env.API_URL
 
 class AuthService {
     async login(user: LoginCredentials) {

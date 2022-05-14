@@ -23,6 +23,7 @@ export const auth = {
     state: initialState,
     actions: {
         login({ commit }: CommitFunction, user: LoginCredentials) {
+            console.log(user)
             return authService.login(user).then(
                 user => {
                     commit('loginSuccess', user);
@@ -45,6 +46,7 @@ export const auth = {
                     return Promise.resolve(response.data);
                 },
                 error => {
+                    console.log(error)
                     commit('registerFailure');
                     return Promise.reject(error);
                 }

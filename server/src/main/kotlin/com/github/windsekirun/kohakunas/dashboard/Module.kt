@@ -31,6 +31,17 @@ fun Application.module() {
     //Init database here
     databaseProvider.init()
 
+    install(CORS) {
+        method(HttpMethod.Options)
+        method(HttpMethod.Put)
+        method(HttpMethod.Delete)
+        method(HttpMethod.Patch)
+        header(HttpHeaders.Authorization)
+        header(HttpHeaders.ContentType)
+        allowCredentials = true
+        allowNonSimpleContentTypes = true
+        anyHost()
+    }
     install(CallLogging) {
         level = Level.DEBUG
     }
