@@ -26,7 +26,6 @@ const setup = (store: Store<unknown>) => {
             return res;
         },
         async (err) => {
-            console.log(err)
             const originalConfig = err.config;
 
             if (originalConfig.url !== LOGIN && err.response) {
