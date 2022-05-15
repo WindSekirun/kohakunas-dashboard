@@ -56,20 +56,20 @@
     "tests": []
   },
   {
-    "_id": "9d77451e-9483-479c-b69e-49acf8dfe8ae",
+    "_id": "509eb99d-1904-4a98-a7e2-fc68545f5cc9",
     "colId": "4a1312cf-c51b-4cc9-b5ec-7275216db539",
     "containerId": "",
-    "name": "Admin - Test",
-    "url": "localhost:8081/api/admin",
+    "name": "Services List",
+    "url": "localhost:8081/api/services",
     "method": "GET",
-    "sortNum": 40000,
-    "created": "2022-05-05T14:09:54.481Z",
-    "modified": "2022-05-14T13:21:35.087Z",
+    "sortNum": 50000,
+    "created": "2022-05-15T13:27:38.225Z",
+    "modified": "2022-05-15T13:27:50.398Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "{{TOKEN}}"
+      "bearer": "{{token}}"
     },
     "tests": []
   }
