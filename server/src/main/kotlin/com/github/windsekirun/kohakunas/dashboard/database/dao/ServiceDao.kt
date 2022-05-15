@@ -35,7 +35,7 @@ fun ResultRow.mapRowToService() =
         desc = this[Services.desc],
         connectUrl = this[Services.connectUrl],
         role = this[Services.role],
-        icon = this[Services.iconUrl],
+        icon = this[Services.iconUrl].trim(),
         category = this[Services.category],
         intranetService = this[Services.intranetService]
     )
