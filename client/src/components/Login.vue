@@ -47,6 +47,7 @@
         </div>
       </v-card>
     </v-col>
+    <snackbar ref="snackbar" />
   </v-row>
 </template>
 

@@ -9,8 +9,10 @@ const setup = (store: Store<unknown>) => {
         (config: AxiosRequestConfig) => {
             const token = tokenService.getLocalAccessToken();
             if (token) {
-                if (!config.headers) return;
-                config.headers["Authorization"] = 'Bearer ' + token; 
+                if (!config.headers) {
+                    config.headers = {};
+                }
+                config.headers["Authorization"] = 'Bearer ' + token;
             }
             return config;
         },
@@ -24,6 +26,7 @@ const setup = (store: Store<unknown>) => {
             return res;
         },
         async (err) => {
+            console.log(err)
             const originalConfig = err.config;
 
             if (originalConfig.url !== LOGIN && err.response) {

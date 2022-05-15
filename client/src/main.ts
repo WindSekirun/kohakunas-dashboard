@@ -7,16 +7,18 @@ import { loadFonts } from './plugins/webfontloader'
 import store from './store/store'
 import router from './router'
 import mitt from 'mitt'
+import setup from './services/interceptor'
 
 const emitter = mitt();
-
 loadFonts()
 
 const app = createApp(App)
-
 app.config.globalProperties.emitter = emitter
+
+setup(store);
 
 app.use(store)
 app.use(router)
 app.use(vuetify)
 app.mount('#app')
+
