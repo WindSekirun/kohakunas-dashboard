@@ -13,6 +13,9 @@ object Services : Table(), ServiceDao {
     val desc = text("desc")
     val connectUrl = varchar("connectUrl", 128)
     val role = enumeration("role", Role::class)
+    val iconUrl = text("iconUrl")
+    val category = text("category")
+    val intranetService = bool("intranetService")
 
     override fun getServicesList(user: User) = select {
         when (user.role) {
@@ -31,7 +34,10 @@ fun ResultRow.mapRowToService() =
         title = this[Services.title],
         desc = this[Services.desc],
         connectUrl = this[Services.connectUrl],
-        role = this[Services.role]
+        role = this[Services.role],
+        icon = this[Services.iconUrl],
+        category = this[Services.category],
+        intranetService = this[Services.intranetService]
     )
 
 interface ServiceDao {

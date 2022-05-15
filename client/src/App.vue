@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar color="#FCFAD4">
-      <v-toolbar-title>KohakuNAS Dashbard</v-toolbar-title>
+      <v-toolbar-title>KohakuNAS Dashboard</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon class="mr-2">mdi-account-circle</v-icon>
       {{ userName }}

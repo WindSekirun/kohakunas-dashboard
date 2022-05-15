@@ -5,5 +5,8 @@ data class Service(
     val title: String,
     val desc: String,
     val connectUrl: String,
-    val role: Role
+    val role: Role,
+    val icon: String,
+    val category: String,
+    val intranetService: Boolean
 )

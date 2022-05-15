@@ -28,7 +28,6 @@ fun Application.module() {
     val userApi by inject<UserApi>()
     val databaseProvider by inject<DatabaseProviderContract>()
     val jwtVerifier by inject<JWTVerifier>()
-    //Init database here
     databaseProvider.init()
 
     install(CORS) {
