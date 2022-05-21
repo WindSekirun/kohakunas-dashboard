@@ -36,18 +36,10 @@ object PasswordManager : PasswordManagerContract {
         var result = ""
         var i = 0
 
-        if (isWithLetters) {
-            result += this.letters
-        }
-        if (isWithUppercase) {
-            result += this.uppercaseLetters
-        }
-        if (isWithNumbers) {
-            result += this.numbers
-        }
-        if (isWithSpecial) {
-            result += this.special
-        }
+        if (isWithLetters) result += this.letters
+        if (isWithUppercase) result += this.uppercaseLetters
+        if (isWithNumbers) result += this.numbers
+        if (isWithSpecial) result += this.special
 
         val rnd = SecureRandom.getInstance("SHA1PRNG")
         val sb = StringBuilder(length)
