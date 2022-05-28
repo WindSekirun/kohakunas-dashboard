@@ -6,24 +6,23 @@ import com.github.windsekirun.kohakunas.dashboard.database.dao.Services
 import com.github.windsekirun.kohakunas.dashboard.database.dao.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.newFixedThreadPoolContext
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-@ObsoleteCoroutinesApi
 class DatabaseProvider : DatabaseProviderContract, KoinComponent {
 
     private val config by inject<Config>()
     private val dispatcher: CoroutineContext
 
     init {
-        dispatcher = newFixedThreadPoolContext(5, "database-pool")
+        dispatcher = Executors.newFixedThreadPool(5).asCoroutineDispatcher()
     }
 
     override fun init() {
