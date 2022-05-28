@@ -26,6 +26,10 @@ object Services : Table(), ServiceDao {
     }.mapNotNull {
         it.mapRowToService()
     }
+
+    override fun getService(serviceId: Int) = select {
+        id eq serviceId
+    }.firstNotNullOf { it.mapRowToService() }
 }
 
 fun ResultRow.mapRowToService() =
@@ -42,5 +46,7 @@ fun ResultRow.mapRowToService() =
 
 interface ServiceDao {
     fun getServicesList(user: User): List<Service>
+
+    fun getService(serviceId: Int): Service
 }
 

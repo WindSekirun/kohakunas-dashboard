@@ -4,7 +4,7 @@ import com.github.windsekirun.kohakunas.dashboard.model.entity.Service
 import com.github.windsekirun.kohakunas.dashboard.model.entity.User
 
 interface MemoApi {
-    fun getMemoOfService(user: User, service: Service, password: String): String
+    fun getMemoOfService(user: User, service: Service): String
 
-    fun updateMemoOfService(user: User, service: Service, password: String, memo: String)
+    fun updateMemoOfService(user: User, service: Service, memo: String)
 }

@@ -6,6 +6,7 @@ import com.github.windsekirun.kohakunas.dashboard.database.DatabaseProviderContr
 import com.github.windsekirun.kohakunas.dashboard.model.entity.User
 import com.github.windsekirun.kohakunas.dashboard.modules.admin.adminModule
 import com.github.windsekirun.kohakunas.dashboard.modules.auth.authenticationModule
+import com.github.windsekirun.kohakunas.dashboard.modules.memo.memoModule
 import com.github.windsekirun.kohakunas.dashboard.modules.register.registerModule
 import com.github.windsekirun.kohakunas.dashboard.modules.service.serviceModule
 import com.github.windsekirun.kohakunas.dashboard.modules.user.userModule
@@ -74,6 +75,7 @@ fun Application.module() {
         authenticate("plain") {
             userModule()
             serviceModule()
+            memoModule()
         }
         authenticate("admin") {
             adminModule()

@@ -7,6 +7,6 @@ class Config(
     val databaseUser: String,
     val databaseName: String,
     val databasePassword: String,
-    val jwtSecret: String,
+    val keySecret: String,
     val registerSecret: String
 )

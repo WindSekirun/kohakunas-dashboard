@@ -10,4 +10,6 @@ object ServiceApiImpl : ServiceApi, KoinComponent {
     private val serviceDao by inject<ServiceDao>()
 
     override fun getServiceList(user: User) = serviceDao.getServicesList(user)
+
+    override fun getService(serviceId: Int) = serviceDao.getService(serviceId)
 }

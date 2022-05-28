@@ -18,7 +18,7 @@ object JwtConfig : TokenProvider {
     lateinit var algorithm: Algorithm
 
     fun initialize(config: Config) {
-        algorithm = Algorithm.HMAC512(config.jwtSecret)
+        algorithm = Algorithm.HMAC512(config.keySecret)
         verifier = JWT.require(algorithm)
             .withIssuer(issuer)
             .build()

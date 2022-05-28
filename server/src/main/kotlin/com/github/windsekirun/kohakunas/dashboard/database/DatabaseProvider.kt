@@ -1,6 +1,7 @@
 package com.github.windsekirun.kohakunas.dashboard.database
 
 import com.github.windsekirun.kohakunas.dashboard.config.Config
+import com.github.windsekirun.kohakunas.dashboard.database.dao.Memos
 import com.github.windsekirun.kohakunas.dashboard.database.dao.Services
 import com.github.windsekirun.kohakunas.dashboard.database.dao.Users
 import com.zaxxer.hikari.HikariConfig
@@ -30,6 +31,7 @@ class DatabaseProvider : DatabaseProviderContract, KoinComponent {
         transaction {
             SchemaUtils.create(Users)
             SchemaUtils.create(Services)
+            SchemaUtils.create(Memos)
         }
     }
 

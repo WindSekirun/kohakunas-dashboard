@@ -65,8 +65,9 @@ fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Con
     val password = System.getenv().getOrDefault("DATABASE_PASSWORD", null)
     requireNotNull(password) { "Password can't be null, assign DATABASE_PASSWORD in environment variables." }
 
-    val jwtSecret = System.getenv().getOrDefault("JWT_SECRET", null)
-    requireNotNull(jwtSecret) { "jwtSecret can't be null, assign JWT_SECRET in environment variables." }
+    val keySecret = System.getenv().getOrDefault("KEY_SECRET", null)
+    requireNotNull(keySecret) { "keySecret can't be null, assign KEY_SECRET in environment variables." }
+    require(keySecret.length == 32) { "keySecret must has 32 length" }
 
     val registerSecret = System.getenv().getOrDefault("REGISTER_SECRET", null)
     requireNotNull(registerSecret) { "registerSecret can't be null, assign REGISTER_SECRET in environment variables." }
@@ -79,7 +80,7 @@ fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Con
         hoconEnvironment.property("databaseUser").getString(),
         hoconEnvironment.property("databaseName").getString(),
         password,
-        jwtSecret,
+        keySecret,
         registerSecret
     )
 }
