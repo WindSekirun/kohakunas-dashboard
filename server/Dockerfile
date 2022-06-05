@@ -4,7 +4,9 @@ RUN mkdir /appbuild
 COPY . /appbuild
 WORKDIR /appbuild
 
-RUN ./gradlew clean build
+RUN mkdir ~/.gradle
+RUN echo 'org.gradle.parallel=true' >> ~/.gradle/gradle.properties
+RUN ./gradlew clean build --configure-on-demand --daemon
 
 FROM ghcr.io/graalvm/jdk:java17
 

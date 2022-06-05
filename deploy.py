@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import configparser
 import subprocess
+import os
+import wget
+from pathlib import Path
 
 properties = configparser.RawConfigParser()
 properties.read('local.ini')
@@ -20,5 +23,11 @@ def build(type):
     buildResult.check_returncode
 
 if __name__ == '__main__':
+    pwd = os.getcwd()
+    distributionPath = f"{pwd}/server/gradle/wrapper/gradle-7.2-bin.zip"
+    if Path(distributionPath).is_file() == False:
+        print("Download gradle-7.2-bin.zip")
+        wget.download("https://services.gradle.org/distributions/gradle-7.2-bin.zip", distributionPath)
+    
     build("server")
     build("client")
