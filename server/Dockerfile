@@ -2,7 +2,6 @@ FROM ghcr.io/graalvm/jdk:java17 AS build
 
 RUN mkdir /appbuild
 COPY . /appbuild
-
 WORKDIR /appbuild
 
 RUN ./gradlew clean build
@@ -10,10 +9,8 @@ RUN ./gradlew clean build
 FROM ghcr.io/graalvm/jdk:java17
 
 RUN mkdir /app
-RUN mkdir /app/resources
 
 COPY --from=build /appbuild/build/libs/com.github.windsekirun.kokakunas.dashboard-*.jar /app/kohakunas-dashboard.jar
-COPY --from=build /appbuild/resources/ /app/resources/
 WORKDIR /app
 
 CMD ["sh", "-c", "java -server -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:InitialRAMFraction=2 -XX:MinRAMFraction=2 -XX:MaxRAMFraction=2 -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:+UseStringDeduplication -jar kohakunas-dashboard.jar"]

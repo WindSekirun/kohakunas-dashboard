@@ -26,7 +26,7 @@
             </v-card-header>
             <v-divider></v-divider>
             <v-card-actions class="justify-end">
-              <v-btn color="info" variant="text">Show Memo</v-btn>
+              <v-btn color="info" v-bind="props"> Memo </v-btn>
               <v-tooltip bottom>
                 <template v-slot:activator="{ props }">
                   <v-btn
@@ -62,6 +62,7 @@ export default {
   data() {
     return {
       categoryList: [],
+      memoDialog: null,
     };
   },
   async mounted() {

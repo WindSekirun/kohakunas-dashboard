@@ -23,21 +23,7 @@ services:
       test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
       timeout: 3s
       retries: 5
-
-#  backend:
-#    build:
-#      context: ./server
-#      entrypoint: DockerFile
-#    mem_limit: 300m
-#    depends_on:
-#      - db
-#        condition: service_healthy
-#    environment:
-#      - ENVIRONMENT=dev
-#    restart: always
-#    ports:
-#      - "3510:3500"
-
+      
 secrets:
   db_password:
     file: ./secret-db.txt
