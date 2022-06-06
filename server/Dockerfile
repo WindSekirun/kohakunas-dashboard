@@ -1,18 +1,10 @@
-FROM ghcr.io/graalvm/jdk:java17 AS build
+FROM gradle:7-jdk8 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle shadowJar --no-daemon
 
-RUN mkdir /appbuild
-COPY . /appbuild
-WORKDIR /appbuild
-
-RUN mkdir ~/.gradle
-RUN echo 'org.gradle.parallel=true' >> ~/.gradle/gradle.properties
-RUN ./gradlew clean build --configure-on-demand --daemon
-
-FROM ghcr.io/graalvm/jdk:java17
-
+FROM openjdk:8
 RUN mkdir /app
-
-COPY --from=build /appbuild/build/libs/com.github.windsekirun.kokakunas.dashboard-*.jar /app/kohakunas-dashboard.jar
+COPY --from=build /home/gradle/src/build/libs/com.github.windsekirun.kokakunas.dashboard-*.jar /app/kohakunas-dashboard.jar
 WORKDIR /app
-
-CMD ["sh", "-c", "java -server -jar kohakunas-dashboard.jar"]
+CMD ["java", "-jar", "kohakunas-dashboard.jar"]

@@ -20,7 +20,7 @@ def build(type):
     if type != 'server' and type != 'client':
         raise Exception("type must be server or client")
 
-    tag = f"{registry}/windsekirun/kohakunas-dashbard/{type}"
+    tag = f"{registry}/windsekirun/kohakunas-dashboard/{type}"
 
     findPlatformCommand = appendSudo(["docker", "buildx", "inspect"])
     findPlatformResult = subprocess.run(findPlatformCommand, stdout=PIPE, stderr=PIPE, universal_newlines=True).stdout.splitlines()[-1]
